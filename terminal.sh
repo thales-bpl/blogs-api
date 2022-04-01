@@ -1,0 +1,1 @@
+docker exec -it blogs-api bash
