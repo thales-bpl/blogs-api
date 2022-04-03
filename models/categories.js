@@ -5,5 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     tableName: 'Categories',
   });
+
+  Category.associate = (models) => {
+    Category.belongsTo(models.PostsCategory, { 
+      as: 'categories', 
+      foreignKey: 'id', 
+    });
+  };
+
   return Category;
 };
