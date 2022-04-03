@@ -1,17 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define('Category', {
+  const Categories = sequelize.define('Categories', {
     name: DataTypes.STRING,
   }, {
     timestamps: false,
     tableName: 'Categories',
   });
 
-  Category.associate = (models) => {
-    Category.belongsTo(models.PostsCategory, { 
+  Categories.associate = (models) => {
+    Categories.belongsTo(models.PostsCategories, { 
       as: 'categories', 
       foreignKey: 'id', 
     });
   };
 
-  return Category;
+  return Categories;
 };
