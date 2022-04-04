@@ -4,6 +4,15 @@ const INVALID_CATEGORY = {
   message: 'Some error has occurred',
 };
 
+const getAllCategories = async (req, res) => {
+  try {
+    const allCategories = await categoryService.getAllCategories();
+    return res.status(200).json(allCategories);
+  } catch (error) {
+    return res.status(500).end();
+  }
+};
+
 const postCategory = async (req, res) => {
   try { 
     const { name } = req.body;
@@ -16,4 +25,5 @@ const postCategory = async (req, res) => {
 
 module.exports = {
   postCategory,
+  getAllCategories,
 };
