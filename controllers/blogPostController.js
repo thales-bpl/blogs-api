@@ -53,9 +53,28 @@ const putBlogPostById = async (req, res) => {
   }
 };
 
+const deleteBlogPostById = async (req, res) => {
+  try {
+    const { user } = req;
+    const { id } = req.params;
+
+    const postById = await blogPostService.getBlogPostsById(id);
+
+    if (user.id !== postById.dataValues.user.id) {
+      return res.status(401).json({ message: 'Unauthorized user' }); 
+    }
+
+    await blogPostService.deleteBlogPostById(id);
+    return res.status(204).json();
+  } catch (error) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+};
+
 module.exports = {
   postBlogPost,
   getAllBlogPosts,
   getBlogPostsById,
   putBlogPostById,
+  deleteBlogPostById,
 };

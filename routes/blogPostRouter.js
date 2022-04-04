@@ -18,6 +18,9 @@ router
     authenticator.validateLogin,
     validations.validateTitle,
     validations.validateContent,
-    blogPostController.putBlogPostById);
+    blogPostController.putBlogPostById)
+  .delete('/:id',
+    authenticator.validateLogin,
+    blogPostController.deleteBlogPostById);
 
 module.exports = router;
