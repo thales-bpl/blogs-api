@@ -38,8 +38,22 @@ const postUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { user } = req;
+    if (req.params.id === 'me') {
+      console.log(req.params.id);
+      await userService.deleteUser(user.id);
+      return res.status(204).json();
+    }
+  } catch (error) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+};
+
 module.exports = {
   postUser,
   getAllUsers,
   getUserById,
+  deleteUser,
 };

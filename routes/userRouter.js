@@ -12,6 +12,7 @@ router
     validations.validateDisplayName,
     validations.validateEmail,
     validations.validatePassword,
-    userController.postUser);
+    userController.postUser)
+  .delete('/:id', authenticator.validateLogin, userController.deleteUser);
 
 module.exports = router;
