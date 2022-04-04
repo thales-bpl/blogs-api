@@ -6,6 +6,7 @@ const authenticator = require('../middlewares/authToken');
 const router = express.Router();
 
 router
+  .get('/', authenticator.validateLogin, blogPostController.getAllBlogPosts)
   .post('/',
     authenticator.validateLogin,
     validations.validateContent,
