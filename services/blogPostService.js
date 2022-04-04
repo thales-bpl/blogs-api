@@ -15,6 +15,23 @@ const getAllBlogPosts = async () => {
   return allPosts;
 };
 
+const getBlogPostsById = async (id) => {
+  const postById = await BlogPosts.findByPk(id, { 
+    include: [
+      { model: Users,
+        attributes: {
+        exclude: ['password'],
+        },
+        as: 'user',
+      },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ] });
+
+  if (!postById) throw new Error();
+
+  return postById;
+};
+
 const postBlogPost = async (userId, title, content, categoryIds) => {
   const categoriesMap = categoryIds.map((category) => Categories.findByPk(category));
   const allCategories = await Promise.all(categoriesMap);
@@ -30,4 +47,5 @@ const postBlogPost = async (userId, title, content, categoryIds) => {
 module.exports = {
   postBlogPost,
   getAllBlogPosts,
+  getBlogPostsById,
 };

@@ -7,6 +7,7 @@ const router = express.Router();
 
 router
   .get('/', authenticator.validateLogin, blogPostController.getAllBlogPosts)
+  .get('/:id', authenticator.validateLogin, blogPostController.getBlogPostsById)
   .post('/',
     authenticator.validateLogin,
     validations.validateContent,
