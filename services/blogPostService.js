@@ -44,8 +44,25 @@ const postBlogPost = async (userId, title, content, categoryIds) => {
   return newPost;
 };
 
+const putBlogPostById = async (id, title, content) => {
+  await BlogPosts.update({ title, content }, { where: { id } });
+
+  const edittedPost = await BlogPosts.findByPk(id, {
+    include: [
+      { model: Categories,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+    attributes: ['title', 'content', 'userId'],
+  });
+
+  return edittedPost;
+};
+
 module.exports = {
   postBlogPost,
   getAllBlogPosts,
   getBlogPostsById,
+  putBlogPostById,
 };

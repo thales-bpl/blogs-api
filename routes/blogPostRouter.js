@@ -13,6 +13,11 @@ router
     validations.validateContent,
     validations.validateTitle,
     validations.validateCategoryId,
-    blogPostController.postBlogPost);
+    blogPostController.postBlogPost)
+  .put('/:id',
+    authenticator.validateLogin,
+    validations.validateTitle,
+    validations.validateContent,
+    blogPostController.putBlogPostById);
 
 module.exports = router;
