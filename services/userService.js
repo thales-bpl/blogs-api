@@ -6,7 +6,7 @@ const postUser = async (displayName, email, password, image) => {
 };
 
 const getAllUsers = async () => {
-  const allUsers = await Users.findAll();
+  const allUsers = await Users.findAll({ attributes: { exclude: ['password'] } });
   return allUsers;
 };
 
