@@ -15,8 +15,9 @@ const validateLogin = async (req, res, next) => {
   if (!token) return res.status(401).json(MISSING_TOKEN);
 
   try {
-  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  await Users.findOne({ where: { email: decodedToken.email } });
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const validUser = await Users.findOne({ where: { email: decodedToken.email } });
+    req.user = validUser.dataValues;
   } catch (error) {
     return res.status(401).json(INVALID_TOKEN);
   }
